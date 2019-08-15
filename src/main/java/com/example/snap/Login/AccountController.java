@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class AccountController {
 
@@ -24,8 +26,8 @@ public class AccountController {
 
     @ResponseBody
     @GetMapping("/accounts")
-    public Account getAccounts () {
-        return accountRepository.findById("test");
+    public List<Account> getAccounts () {
+        return accountRepository.findAll();
     }
 
 }
