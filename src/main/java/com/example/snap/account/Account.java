@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Setter @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Account {
     @Id
     private @Column(name = "id") String id;

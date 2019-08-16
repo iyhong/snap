@@ -8,4 +8,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Transactional
 //    @Query("SELECT id, password FROM Account account WHERE account.id =:id")
     Account findById(String id);
+
 }
