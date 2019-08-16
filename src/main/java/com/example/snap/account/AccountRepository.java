@@ -1,10 +1,8 @@
-package com.example.snap.Login;
+package com.example.snap.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
     @Transactional
