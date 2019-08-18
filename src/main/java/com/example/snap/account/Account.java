@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "account")
@@ -14,10 +16,19 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Account {
-    @Id
-    private @Column(name = "id") String id;
-    private @Column(name = "password")String password;
-    private @Column(name = "email")String email;
-    private @Column(name = "account_type")String accountType;
+public class Account extends Login{
+
+    @NotEmpty
+    @Column(name = "email")
+    private String email;
+
+    @NotEmpty
+    @Column(name = "account_type", columnDefinition = "varchar(2) default 1")
+    private String accountType = "1";
+
+    @Column(name = "auth_yn", columnDefinition = "varchar(2) default N")
+    private String authYN = "N";
+
+    @Column(name = "auth_key")
+    private String authKey;
 }

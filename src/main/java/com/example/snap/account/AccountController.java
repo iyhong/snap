@@ -1,14 +1,19 @@
 package com.example.snap.account;
 
+import com.example.snap.account.util.MailUtils;
+import com.example.snap.account.util.TempKey;
 import com.example.snap.domain.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/")
@@ -18,6 +23,8 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private JavaMailSender sender;
 
 //    @PostMapping("/accounts")
 //    public void register(@RequestBody Account account){
@@ -25,18 +32,18 @@ public class AccountController {
 //        accountRepository.save(account);
 //    }
 
-    @PostMapping("/accounts")
-    public Result login(@RequestParam("id") String id, @RequestParam("password") String password){
+    @PostMapping("/accounts/login")
+    public Result login(@RequestBody @Valid Login login){
         Result result = new Result();
-        Account account = accountRepository.findById(id);
-        logger.debug("-----------------------param id: "+id);
+        Account account = accountRepository.findById(login.getId());
+        logger.debug("-----------------------param id: "+login.getId());
         if(account == null){
             result.setCode(HttpStatus.BAD_REQUEST.value());
             result.setMessage("There is no ID");
             return result;
         }
 
-        if(!account.getPassword().equals(password)){
+        if(!account.getPassword().equals(login.getPassword())){
             result.setCode(HttpStatus.UNAUTHORIZED.value());
             result.setMessage("Unauthorized login failed");
             return result;
@@ -62,8 +69,69 @@ public class AccountController {
         }
         result.setResult(account);
         return result;
-
-
     }
+
+    @PostMapping("accounts/create")
+    public Result create(@RequestBody @Valid Account accountParam){
+        Result result = new Result();
+        String key = new TempKey().getKey(50, false);
+        accountParam.setAuthKey(key);
+        accountRepository.save(accountParam);
+        MailUtils sendMail = null;
+        try {
+            sendMail = new MailUtils(sender);
+            sendMail.setSubject("Snap 이메일 인증");
+            sendMail.setText(new StringBuffer()
+                    .append("저희 snap에 가입해 주셔서 감사합니다.\n")
+                    .append("아래 링크를 클릭하시면 이메일 인증이 완료됩니다.\n")
+                    .append("http://localhost:8080/api/accounts/")
+                    .append(accountParam.getId())
+                    .append("/")
+                    .append(accountParam.getAuthKey())
+                    .toString()
+            );
+            sendMail.setFrom("test@daum.net", "no-reply");
+            sendMail.setTo(accountParam.getEmail());
+            sendMail.send();
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+            result.setCode(HttpStatus.CONFLICT.value());
+            result.setMessage("There is an error about sending an email");
+            return result;
+        }
+        return result;
+    }
+
+    @GetMapping("/accounts/{id}/{authKey}")
+    public Result authCompleteEmail(@PathVariable String id, @PathVariable String authKey){
+        Result result = new Result();
+        Account account = accountRepository.findById(id);
+        if(!authKey.equals(account.getAuthKey())){
+            result.setCode(HttpStatus.CONFLICT.value());
+            result.setMessage("There is an error about auth");
+            return result;
+        }
+        account.setAuthYN("Y");
+        accountRepository.save(account);
+        return result;
+    }
+
+    @GetMapping("/byMail/")
+    public Account getAccountByMail(){
+        String email = "abc@abc.com";
+        Account account = accountRepository.findByMailaa(email);
+        return account;
+    }
+
+//    @GetMapping("/testMail")
+//    public void sendMailTest() throws MessagingException, UnsupportedEncodingException {
+//        MailUtils sendMail = new MailUtils(sender);
+//        sendMail.setSubject("Test Mail Subject");
+//        sendMail.setText("this is test mail contents");
+//        sendMail.setFrom("test@daum.net", "관리자");
+//        sendMail.setTo("loverman85@hanmail.net");
+//        sendMail.send();
+//
+//    }
 
 }
