@@ -6,6 +6,7 @@ import com.example.snap.domain.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ import java.util.List;
 public class AccountController {
 
     private static Logger logger = LoggerFactory.getLogger(AccountController.class);
+
+    @Value("${our.url}")
+    private String url;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -84,7 +88,7 @@ public class AccountController {
             sendMail.setText(new StringBuffer()
                     .append("저희 snap에 가입해 주셔서 감사합니다.\n")
                     .append("아래 링크를 클릭하시면 이메일 인증이 완료됩니다.\n")
-                    .append("http://localhost:8080/api/accounts/")
+                    .append(url)
                     .append(accountParam.getId())
                     .append("/")
                     .append(accountParam.getAuthKey())
@@ -99,6 +103,7 @@ public class AccountController {
             result.setMessage("There is an error about sending an email");
             return result;
         }
+        result.setCode(HttpStatus.CREATED.value());
         return result;
     }
 
