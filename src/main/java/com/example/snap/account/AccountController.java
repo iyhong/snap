@@ -90,6 +90,7 @@ public class AccountController {
                     .append("저희 snap에 가입해 주셔서 감사합니다.\n")
                     .append("아래 링크를 클릭하시면 이메일 인증이 완료됩니다.\n")
                     .append(url)
+                    .append("/api/accounts/")
                     .append(accountParam.getId())
                     .append("/")
                     .append(accountParam.getAuthKey())
@@ -110,6 +111,7 @@ public class AccountController {
 
     @GetMapping("/accounts/{id}/{authKey}")
     public Result authCompleteEmail(@PathVariable String id, @PathVariable String authKey){
+        logger.debug("authCompleteEmail");
         Result result = new Result();
         Account account = accountRepository.findById(id);
         if(!authKey.equals(account.getAuthKey())){
