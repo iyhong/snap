@@ -2,6 +2,13 @@
 # 이미 가입된 이메일로 회원가입 시도시 409 충돌 에러
 # https://gist.github.com/subicura/8329759
 
+
+spring:
+  profiles:
+    active: local
+
+---
+
 ec2.url: http://ec2-3-130-168-102.us-east-2.compute.amazonaws.com:8080
   #our.url=http://localhost:8080/
 
@@ -65,6 +72,8 @@ spring:
   jpa:
     database-platform: H2
     show-sql: true
+    properties:
+      hibernate.format_sql: true
     hibernate:
       ddl-auto: none
   h2:
