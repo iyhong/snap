@@ -23,7 +23,7 @@ public class AccountController {
 
     private static Logger logger = LoggerFactory.getLogger(AccountController.class);
 
-    @Value("${our.url}")
+    @Value("${ec2.url}")
     private String url;
 
     @Autowired
@@ -79,6 +79,11 @@ public class AccountController {
     @PostMapping("accounts/create")
     public Result create(@RequestBody @Valid Account accountParam){
         Result result = new Result();
+        if(accountRepository.findById(accountParam.getId()) != null){
+            result.setCode(HttpStatus.CONFLICT.value());
+            result.setMessage("There is a duplicate ID.");
+            return result;
+        }
         String key = new TempKey().getKey(50, false);
         accountParam.setAuthKey(key);
         accountRepository.save(accountParam);
@@ -101,7 +106,7 @@ public class AccountController {
             sendMail.send();
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
-            result.setCode(HttpStatus.CONFLICT.value());
+            result.setCode(HttpStatus.SERVICE_UNAVAILABLE.value());
             result.setMessage("There is an error about sending an email");
             return result;
         }
@@ -124,11 +129,24 @@ public class AccountController {
         return result;
     }
 
-    @GetMapping("/byMail/")
-    public Account getAccountByMail(){
-        String email = "abc@abc.com";
-        Account account = accountRepository.findByMailaa(email);
-        return account;
+//    @GetMapping("/byMail/")
+//    public Account getAccountByMail(){
+//        String email = "abc@abc.com";
+//        Account account = accountRepository.findByMailaa(email);
+//        return account;
+//    }
+
+    @GetMapping("/accounts/valid/{id}")
+    public Result checkValidationId(@PathVariable String id){
+        Result result = new Result();
+        Account account = accountRepository.findById(id);
+//       중복이 없음.
+        if (account == null) {
+            return result;
+        }
+        result.setCode(HttpStatus.CONFLICT.value());
+        result.setMessage("There is a duplicate ID.");
+        return result;
     }
 
 //    @GetMapping("/testMail")

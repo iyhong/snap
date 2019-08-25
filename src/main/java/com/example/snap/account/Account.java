@@ -23,11 +23,11 @@ public class Account extends Login{
     private String email;
 
     @NotEmpty
-    @Column(name = "account_type", columnDefinition = "varchar(2) default 1")
-    private String accountType = "1";
+    @Column(name = "account_type")
+    private String accountType;
 
-    @Column(name = "auth_yn", columnDefinition = "varchar(2) default N")
-    private String authYN = "N";
+    @Column(name = "auth_yn")
+    private String authYN;
 
     @Column(name = "auth_key")
     private String authKey;

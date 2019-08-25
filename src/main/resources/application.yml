@@ -1,0 +1,73 @@
+# HttpStatus
+# 이미 가입된 이메일로 회원가입 시도시 409 충돌 에러
+# https://gist.github.com/subicura/8329759
+
+ec2.url: http://ec2-3-130-168-102.us-east-2.compute.amazonaws.com:8080
+  #our.url=http://localhost:8080/
+
+database: mysql
+spring:
+  profiles: real
+  datasource:
+    url: jdbc:mysql://snapdb.c4ocaos6pdyh.us-east-2.rds.amazonaws.com:3306/snap
+    username: snapdb_root
+    password: 1q2w3e4r!
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: snaptest1004
+    password: snap123!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  #spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+  # Logging
+logging:
+  level:
+    com.example.snap: info
+    com.example.snap.account: DEBUG
+#    org.hibernate.type: trace
+
+  # logging.level.org.springframework.context.annotation=TRACE
+
+
+---
+ec2.url: http://localhost:8080
+
+
+spring:
+  profiles: local
+
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    schema: classpath*:/schema.sql
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: snaptest1004
+    password: snap123!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+  jpa:
+    database-platform: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+      path: /h2console
