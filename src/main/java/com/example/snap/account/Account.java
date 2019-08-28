@@ -14,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 @Setter @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 public class Account extends Login {
 
     @NotEmpty
