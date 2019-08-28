@@ -1,4 +1,4 @@
-package com.example.snap.account;
+package com.example.snap.domain;
 
 import lombok.*;
 

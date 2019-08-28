@@ -1,4 +1,4 @@
-package com.example.snap.account.util;
+package com.example.snap.util;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

@@ -1,13 +1,12 @@
 package com.example.snap.account;
 
+import com.example.snap.domain.Login;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "account")
@@ -16,7 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Account extends Login{
+public class Account extends Login {
 
     @NotEmpty
     @Column(name = "email")
@@ -31,4 +30,5 @@ public class Account extends Login{
 
     @Column(name = "auth_key")
     private String authKey;
+
 }

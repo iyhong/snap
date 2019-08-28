@@ -1,7 +1,8 @@
 package com.example.snap.account;
 
-import com.example.snap.account.util.MailUtils;
-import com.example.snap.account.util.TempKey;
+import com.example.snap.domain.Login;
+import com.example.snap.util.MailUtils;
+import com.example.snap.util.TempKey;
 import com.example.snap.domain.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +80,7 @@ public class AccountController {
     @PostMapping("accounts/create")
     public Result create(@RequestBody @Valid Account accountParam){
         Result result = new Result();
+        accountParam.setAuthYN("N");
         if(accountRepository.findById(accountParam.getId()) != null){
             result.setCode(HttpStatus.CONFLICT.value());
             result.setMessage("There is a duplicate ID.");
