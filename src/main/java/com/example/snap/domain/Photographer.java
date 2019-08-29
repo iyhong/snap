@@ -1,34 +1,24 @@
 package com.example.snap.domain;
 
-import com.example.snap.account.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "photographer")
-public class Photographer implements Serializable {
-    @Id
-    @OneToOne
-    @JoinColumn(name = "id")
-    private Account account;
-
-    @Column(name = "name")
-    private String name;
+@MappedSuperclass
+public class Photographer extends Login {
 
     @Column(name = "address2_id")
-    private String address;
+    private Integer address2Id;
 
     @Column(name = "homepage")
     private String homepage;
-
 
 }

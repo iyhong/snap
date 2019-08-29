@@ -1,5 +1,7 @@
 package com.example.snap.account;
 
+import com.example.snap.domain.Address1;
+import com.example.snap.domain.Address2;
 import com.example.snap.domain.Login;
 import com.example.snap.util.MailUtils;
 import com.example.snap.util.TempKey;
@@ -31,6 +33,10 @@ public class AccountController {
     private AccountRepository accountRepository;
     @Autowired
     private JavaMailSender sender;
+    @Autowired
+    private Address1Repository address1Repository;
+    @Autowired
+    private Address2Repository address2Repository;
 
 //    @PostMapping("/accounts")
 //    public void register(@RequestBody Account account){
@@ -161,5 +167,16 @@ public class AccountController {
 //        sendMail.send();
 //
 //    }
+
+    @GetMapping("/test")
+    public void test(){
+        Address1 address1 = new Address1();
+        address1.setName("test");
+        address1Repository.save(address1);
+        Address2 address2 = new Address2();
+        address2.setName("testChild");
+        address2.setAddress1(address1);
+        address2Repository.save(address2);
+    }
 
 }

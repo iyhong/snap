@@ -1,11 +1,10 @@
 package com.example.snap.account;
 
-import com.example.snap.domain.Login;
+import com.example.snap.domain.Photo;
+import com.example.snap.domain.Photographer;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Account extends Login {
+public class Account extends Photographer {
 
     @NotEmpty
     @Column(name = "email")
@@ -29,5 +28,9 @@ public class Account extends Login {
 
     @Column(name = "auth_key")
     private String authKey;
+
+    @OneToMany
+    @JoinColumn(name = "id")
+    private Photo photo;
 
 }
