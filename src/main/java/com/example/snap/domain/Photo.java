@@ -1,19 +1,17 @@
 package com.example.snap.domain;
 
+import com.example.snap.account.Account;
 import lombok.Data;
-import sun.util.calendar.BaseCalendar;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import java.util.Date;
 
 @Entity
 @Data
-public class Photo {
-    @Id
-    @JoinColumn(name = "photographer")
-    private String photographer;
+@DiscriminatorValue("P")
+public class Photo extends Account {
 
     @Column(name = "filename")
     private String fileName;
@@ -25,8 +23,8 @@ public class Photo {
     private String location;
 
     @Column(name = "create_time")
-    private BaseCalendar.Date createTime;
+    private Date createTime;
 
     @Column(name = "update_time")
-    private BaseCalendar.Date updateTime;
+    private Date updateTime;
 }

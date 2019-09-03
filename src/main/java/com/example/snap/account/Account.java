@@ -1,25 +1,21 @@
 package com.example.snap.account;
 
-import com.example.snap.domain.Photo;
-import com.example.snap.domain.Photographer;
-import lombok.*;
+import com.example.snap.domain.Login;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "account")
-@Builder @Getter
-@Setter @AllArgsConstructor
-@NoArgsConstructor
 @ToString
-public class Account extends Photographer {
+@Data
+@Inheritance(strategy =  InheritanceType.JOINED)
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Account extends Login {
 
-    @NotEmpty
     @Column(name = "email")
     private String email;
 
-    @NotEmpty
     @Column(name = "account_type")
     private String accountType;
 
@@ -28,9 +24,5 @@ public class Account extends Photographer {
 
     @Column(name = "auth_key")
     private String authKey;
-
-    @OneToMany
-    @JoinColumn(name = "id")
-    private Photo photo;
 
 }

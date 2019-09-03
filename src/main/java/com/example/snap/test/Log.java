@@ -1,4 +1,4 @@
-package com.example.snap.domain;
+package com.example.snap.test;
 
 import lombok.Data;
 
@@ -7,14 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @Data
-//@ToString
 @MappedSuperclass
-public class Login {
+public class Log {
     @Id
     @Column(name = "id")
-    private String id;
-
-    @Column(name = "password")
+    private Long id;
+    private String account;
     private String password;
 
 }

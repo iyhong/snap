@@ -1,19 +1,17 @@
 package com.example.snap.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.example.snap.account.Account;
 
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@MappedSuperclass
-public class Photographer extends Login {
+//@Entity
+//@Data
+//@ToString
+//@DiscriminatorValue("G")
+public class Photographer extends Account {
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "address2_id")
     private Integer address2Id;

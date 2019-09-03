@@ -9,8 +9,8 @@ public class AccountControllerTest {
 
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private PhotographerRepository photographerRepository;
+//    @Autowired
+//    private PhotographerRepository photographerRepository;
 
 
 //    @Test
