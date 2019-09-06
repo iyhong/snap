@@ -13,12 +13,18 @@
 -- LOCK TABLES  account  WRITE;
 /*!40000 ALTER TABLE  account  DISABLE KEYS */;
 
-INSERT INTO  account  ( id ,  password ,  email ,  account_type ,  auth_yn ,  auth_key ,dtype)
+INSERT INTO  account  ( id ,  password ,  email ,  account_type ,  auth_yn ,  auth_key)
 VALUES
-	('abc','abc','abc@abc.com','1','N',NULL,'g'),
-	('john419@naver.com','123qwe','john419@naver.com','1','N','tPG0mwaYwOfPGS2tTsQq7c0YOQu9RoQKPoWfGDMTt3nkx0LiWa','g'),
-	('sample','sample','sample@sample.com','2','N',NULL,'p'),
-	('sample2','sample2','sample2@sample.com','2','N',NULL,'p');
+	('abc','abc','abc@abc.com','1','N',NULL),
+	('john419@naver.com','123qwe','john419@naver.com','1','N','tPG0mwaYwOfPGS2tTsQq7c0YOQu9RoQKPoWfGDMTt3nkx0LiWa'),
+	('sample','sample','sample@sample.com','2','N',NULL),
+	('sample2','sample2','sample2@sample.com','2','N',NULL);
+
+
+INSERT INTO `photographer` (`id`, `name`, `address2_id`, `homepage`)
+VALUES
+	('sample', '사진사', 20, 'www.sample.com'),
+	('sample2', '강사진', 22, NULL);
 
 -- INSERT INTO `address1` (`id`, `name`)
 -- VALUES

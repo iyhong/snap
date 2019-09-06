@@ -1,16 +1,13 @@
 package com.example.snap.domain;
 
 import com.example.snap.account.Account;
-import lombok.Data;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
-@Data
-@DiscriminatorValue("P")
+//@Entity
+//@Data
+//@DiscriminatorValue("P")
 public class Photo extends Account {
 
     @Column(name = "filename")

@@ -7,10 +7,9 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@ToString
+@ToString(callSuper = true)
 @Data
 @Inheritance(strategy =  InheritanceType.JOINED)
-@DiscriminatorColumn(name = "DTYPE")
 public abstract class Account extends Login {
 
     @Column(name = "email")

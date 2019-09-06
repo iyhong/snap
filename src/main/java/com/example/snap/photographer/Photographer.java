@@ -1,13 +1,15 @@
-package com.example.snap.domain;
+package com.example.snap.photographer;
 
 import com.example.snap.account.Account;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
-//@Entity
-//@Data
-//@ToString
-//@DiscriminatorValue("G")
+@Entity
+@Data
+@ToString(callSuper = true)
 public class Photographer extends Account {
 
     @Column(name = "name")
