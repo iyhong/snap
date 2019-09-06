@@ -10,7 +10,7 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 @Data
 @Inheritance(strategy =  InheritanceType.JOINED)
-public abstract class Account extends Login {
+public class Account extends Login {
 
     @Column(name = "email")
     private String email;
