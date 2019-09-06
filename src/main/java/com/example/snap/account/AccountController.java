@@ -2,8 +2,6 @@ package com.example.snap.account;
 
 import com.example.snap.domain.Login;
 import com.example.snap.domain.Result;
-import com.example.snap.photographer.Photographer;
-import com.example.snap.photographer.PhotographerRepository;
 import com.example.snap.util.MailUtils;
 import com.example.snap.util.TempKey;
 import org.slf4j.Logger;
@@ -32,8 +30,6 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Autowired
-    private PhotographerRepository photographerRepository;
 
     @Autowired
     private JavaMailSender sender;
@@ -167,14 +163,6 @@ public class AccountController {
 //
 //    }
 
-    @GetMapping("/test")
-    public void test(){
-        List<Photographer> accounts = photographerRepository.findAll();
-        for (Photographer account: accounts ) {
-            System.out.println(account.getId());
-            System.out.println(account.getAddress2Id());
-            System.out.println(account.toString());
-        }
-    }
+
 
 }

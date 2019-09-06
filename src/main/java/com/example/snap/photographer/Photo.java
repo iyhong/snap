@@ -1,4 +1,4 @@
-package com.example.snap.domain;
+package com.example.snap.photographer;
 
 import com.example.snap.account.Account;
 
