@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @ToString(callSuper = true)
 @Data
+@DiscriminatorColumn(name = "ACCOUNT_TYPE")
 @Inheritance(strategy =  InheritanceType.JOINED)
 public class Account extends Login {
 
