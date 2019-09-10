@@ -1,12 +1,12 @@
 package com.example.snap.photographer;
 
-import com.example.snap.account.Account;
 import com.example.snap.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @RestController
@@ -34,17 +34,11 @@ public class PhotographerController {
             System.out.println(account.getAddress2Id());
             System.out.println(account.toString());
         }
-        Account account = new Account();
-        account.setId("test1");
-        account.setAccountType("2");
-        account.setEmail("test@test.com");
-        account.setAuthYN("N");
-        account.setPassword("aaa");
-//        em.persist(account);
+
         Photographer photographer = new Photographer();
+        photographer.setId("test111");
         photographer.setAddress2Id(30);
         photographer.setName("test");
-        em.persist(photographer);
-//        tx.commit();
+        photographerRepository.save(photographer);
     }
 }

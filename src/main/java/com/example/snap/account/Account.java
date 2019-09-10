@@ -16,9 +16,6 @@ public class Account extends Login {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "account_type")
-    private String accountType;
-
     @Column(name = "auth_yn")
     private String authYN;
 
