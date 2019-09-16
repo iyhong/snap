@@ -1,20 +1,27 @@
 package com.example.snap.photographer;
 
-import com.example.snap.account.Account;
+import lombok.Data;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.util.Date;
 
-//@Entity
-//@Data
-//@DiscriminatorValue("P")
-public class Photo extends Account {
+@Entity
+@Data
+public class Photo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long no;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "photographer")
+    private Photographer photographer;
 
     @Column(name = "filename")
-    private String fileName;
+    private String filename;
 
     @Column(name = "filetype")
-    private String fileType;
+    private String filetype;
 
     @Column(name = "location")
     private String location;

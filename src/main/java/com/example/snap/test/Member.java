@@ -10,7 +10,11 @@ import java.io.Serializable;
 public class Member implements Serializable {
 
     @Id
-    @ManyToOne
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
 
